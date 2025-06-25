@@ -63,6 +63,9 @@ Thumbs.db
 .RData
 *.Rproj
 
+# Private research data and models
+shiny_ovarianresp/
+
 # IDE and development tools
 .cursor/
 .roo/
