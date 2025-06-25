@@ -1,124 +1,192 @@
-# 卵巢反应预测系统 (Ovarian Response Prediction System)
+# IVF Ovarian Response Prediction System
 
-基于机器学习的卵巢反应预测工具，帮助医生评估IVF治疗中患者的卵巢反应风险。
+A machine learning-powered ovarian response prediction tool that helps medical professionals assess ovarian response risks in IVF treatments.
 
-## 🚀 快速开始
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://your-app.vercel.app)
+[![Backend API](https://img.shields.io/badge/API-Backend-blue)](https://your-backend.railway.app)
 
-### 启动整个系统
+## 🚀 Quick Start
+
+### Deploy to Cloud (Recommended)
+This application is designed for deployment on:
+- **Frontend**: Vercel (Free)
+- **Backend**: Railway (Free)
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
+
+### Local Development
+
+#### Start the entire system
 ```bash
 ./start_system.sh
 ```
 
-### 手动启动
+#### Manual startup
 
-1. **启动后端API服务**
+1. **Start Backend API Server**
 ```bash
-cd backend
 python3 simple_api.py
 ```
 
-2. **启动前端开发服务器**
+2. **Start Frontend Development Server**
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-## 📱 访问应用
+## 📱 Access the Application
 
-- **前端界面**: http://localhost:3000
-- **后端API**: http://localhost:8000
-- **API健康检查**: http://localhost:8000/health
+- **Frontend Interface**: http://localhost:3000
+- **Backend API**: http://localhost:8080
+- **API Health Check**: http://localhost:8080/health
 
-## 🏗️ 项目结构
+## 🏗️ Project Structure
 
 ```
-├── backend/                 # 后端API服务
-│   └── simple_api.py       # Python API服务器
-├── frontend/               # React前端应用
-│   ├── src/               # 源代码
-│   ├── dist/              # 构建输出
-│   └── package.json       # 依赖配置
-├── scripts/               # 脚本和工具
-│   └── legacy_shiny_app/  # 旧版Shiny应用
-├── docs/                  # 文档
-├── CLAUDE.md             # Claude Code 使用指南
-├── README.md             # 项目说明
-└── start_system.sh       # 系统启动脚本
+├── frontend/               # React frontend application
+│   ├── src/               # Source code
+│   ├── public/            # Static assets
+│   ├── dist/              # Build output
+│   ├── vercel.json        # Vercel deployment config
+│   └── package.json       # Dependencies
+├── simple_api.py          # Python API server
+├── railway.json           # Railway deployment config
+├── requirements.txt       # Python dependencies
+├── scripts/               # Scripts and utilities
+│   └── legacy_shiny_app/  # Legacy Shiny application
+├── shiny_ovarianresp/     # Original R/Shiny models
+├── CLAUDE.md              # Project documentation
+├── DEPLOYMENT.md          # Deployment guide
+├── README.md              # Project description
+└── start_system.sh        # System startup script
 ```
 
-## 📋 功能特性
+## 📋 Features
 
-- 🔬 **智能预测**: 基于临床参数预测卵巢反应风险
-- 📊 **可视化分析**: 直观的风险评估图表
-- 📱 **响应式设计**: 支持各种设备访问
-- 🏥 **临床建议**: 基于预测结果提供治疗建议
-- 📋 **历史记录**: 保存和管理预测历史
+- 🔬 **Intelligent Prediction**: Predict ovarian response risks based on clinical parameters
+- 📊 **Visual Analytics**: Intuitive risk assessment charts and visualizations
+- 📱 **Responsive Design**: Supports access from various devices
+- 🏥 **Clinical Recommendations**: Treatment suggestions based on prediction results
+- 📋 **Prediction History**: Save and manage prediction records
+- 🌍 **International Ready**: Full English interface for global use
 
-## 💻 技术栈
+## 💻 Technology Stack
 
-### 前端
+### Frontend
 - React 18 + TypeScript
-- Ant Design 5 UI组件库
-- Vite 构建工具
-- Zustand 状态管理
+- Ant Design 5 UI Library
+- Vite Build Tool
+- Zustand State Management
+- React Query for API Management
+- Comprehensive Testing (Vitest + Playwright)
 
-### 后端
-- Python 3 HTTP服务器
-- JSON数据交换
-- CORS跨域支持
+### Backend
+- Python 3 HTTP Server
+- JSON Data Exchange
+- CORS Cross-Origin Support
+- Railway-ready deployment
 
-## 🔧 开发
+### Deployment
+- Frontend: Vercel (Static hosting)
+- Backend: Railway (Python hosting)
+- Domain: Custom domain support
 
-### 前端开发
+## 🔧 Development
+
+### Frontend Development
 ```bash
 cd frontend
-npm run dev          # 开发服务器
-npm run build        # 生产构建
-npm run test         # 运行测试
+npm run dev          # Development server
+npm run build        # Production build
+npm run test         # Run unit tests
+npm run test:e2e     # Run E2E tests
+npm run lint         # Code linting
+npm run type-check   # TypeScript checking
 ```
 
-### 后端开发
+### Backend Development
 ```bash
-cd backend
-python3 simple_api.py  # 启动API服务器
+python3 simple_api.py  # Start API server
 ```
 
-## 📊 API接口
+## 📊 API Endpoints
 
-### 健康检查
+### Health Check
 ```
 GET /health
+Response: {"status": "API is running", "timestamp": "...", "model_status": "Models loaded successfully"}
 ```
 
-### 预测接口
+### Prediction Endpoint
 ```
 POST /predict
 Content-Type: application/json
 
 {
   "Age": 32,
+  "Duration": 6,
+  "Weight": 58,
+  "FSH": 7.2,
+  "LH": 4.8,
   "AMH": 2.1,
   "AFC": 12,
-  "FSH": 7.2,
-  "PCOS": 1,
+  "DBP": 78,
+  "WBC": 6.2,
+  "RBC": 4.4,
+  "ALT": 22,
+  "P": 1.1,
+  "PLT": 280,
   "POIorDOR": 2,
-  ...
+  "PCOS": 2
+}
+
+Response: {
+  "status": "success",
+  "por_prediction": {
+    "poor_response_prob": 0.15,
+    "normal_response_prob": 0.85
+  },
+  "hor_prediction": {
+    "high_response_prob": 0.05,
+    "normal_response_prob": 0.95
+  }
 }
 ```
 
-## 🎯 使用说明
+## 🎯 Usage Instructions
 
-1. 打开浏览器访问 http://localhost:3000
-2. 填写患者临床参数
-3. 点击"开始预测"按钮
-4. 查看预测结果和临床建议
-5. 可导出或打印预测报告
+1. Open your browser and navigate to the application URL
+2. Fill in the patient's clinical parameters in the prediction form
+3. Click the "Start Prediction" button
+4. Review the prediction results and clinical recommendations
+5. Export or print the prediction report if needed
 
-## 🔒 免责声明
+## 🚀 Deployment
 
-此预测结果仅供医疗专业人员参考，不应作为诊断或治疗的唯一依据。请结合患者的完整病史、体格检查和其他相关检查结果进行综合判断。
+This application is optimized for free cloud deployment:
 
-## 📄 许可证
+1. **Backend on Railway**: Automatic Python environment detection
+2. **Frontend on Vercel**: Static React build with CDN
+3. **Custom Domain**: Optional custom domain configuration
 
-本项目仅供学术研究使用。
+See [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step deployment instructions.
+
+## 🔒 Medical Disclaimer
+
+This prediction system is designed for research and clinical decision support purposes only. Results should not replace clinical judgment and comprehensive patient evaluation. Always consult with qualified medical professionals before making treatment decisions.
+
+## 📞 Contact
+
+For technical questions or support:
+- Email: frank_sjtu@hotmail.com
+- Institution: Zhejiang University Women's Hospital
+- Website: https://www.womanhospital.cn/
+
+## 📄 License
+
+This project is for academic research and educational purposes only.
+
+---
+
+**Made with ❤️ for advancing reproductive medicine through AI**
