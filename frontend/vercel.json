@@ -1,24 +1,10 @@
 {
-  "version": 2,
-  "name": "ivf-ovarian-response-prediction",
-  "builds": [
+  "rewrites": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
-  "env": {
-    "VITE_APP_TITLE": "IVF Ovarian Response Prediction System"
-  },
   "headers": [
     {
       "source": "/(.*)",
@@ -28,7 +14,7 @@
           "value": "nosniff"
         },
         {
-          "key": "X-Frame-Options",
+          "key": "X-Frame-Options", 
           "value": "DENY"
         },
         {
