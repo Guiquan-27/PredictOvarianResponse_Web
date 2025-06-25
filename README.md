@@ -176,13 +176,6 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step deployment instructions.
 
 This prediction system is designed for research and clinical decision support purposes only. Results should not replace clinical judgment and comprehensive patient evaluation. Always consult with qualified medical professionals before making treatment decisions.
 
-## 📞 Contact
-
-For technical questions or support:
-- Email: frank_sjtu@hotmail.com
-- Institution: Zhejiang University Women's Hospital
-- Website: https://www.womanhospital.cn/
-
 ## 📄 License
 
 This project is for academic research and educational purposes only.
