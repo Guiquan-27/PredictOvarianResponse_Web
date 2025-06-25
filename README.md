@@ -35,12 +35,6 @@ npm install
 npm run dev
 ```
 
-## 📱 Access the Application
-
-- **Frontend Interface**: http://localhost:3000
-- **Backend API**: http://localhost:8080
-- **API Health Check**: http://localhost:8080/health
-
 ## 🏗️ Project Structure
 
 ```
