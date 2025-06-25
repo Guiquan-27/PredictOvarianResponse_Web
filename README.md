@@ -2,8 +2,8 @@
 
 A machine learning-powered ovarian response prediction tool that helps medical professionals assess ovarian response risks in IVF treatments.
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://your-app.vercel.app)
-[![Backend API](https://img.shields.io/badge/API-Backend-blue)](https://your-backend.railway.app)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://predict-ovarian-response-web.vercel.app)
+[![Backend API](https://img.shields.io/badge/API-Backend-blue)](https://predictovarianresponseweb-production.up.railway.app)
 
 ## 🚀 Quick Start
 
