@@ -1,0 +1,57 @@
+---
+title: "Untitled"
+author: "Guiquan"
+date: "2022/2/17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Diagnosis models.
+```{r}
+install.packages("tidymodels")
+library(tidymodels)
+# Choose a new patient randomly.
+set.seed(111)
+new_person1 <- demo.data %>% slice_sample(n = 1) %>% 
+  select(AMH, AFC, POIorDOR, FSH, Age, P, Weight, DBP, WBC, ALT, RBC, Duration, LH, PCOS, PLT)
+# Diagnosing POR
+predict(pordm_final_wfversion, new_person1)
+
+## If we want to know the predicted probability of POR.
+predict(pordm_final_wfversion, new_person1, type = "prob")
+
+# Diagnosing HOR
+predict(hordm_final_wfversion, new_person1)
+## If we want to know the predicted probability of HOR.
+predict(hordm_final_wfversion, new_person1, type = "prob")
+```
+
+# Strategy models.
+```{r}
+# Choose a new patient randomly.
+set.seed(222)
+new_person2 <- demo.data %>% slice_sample(n = 1) %>% 
+  select(everything())
+# new_person2里已经包含一个治疗指标的组合，故预测该患者接受这些治疗后是否为POR：
+predict(porsm_final_wfversion, new_person2)
+# 预测是否为HOR:
+predict(horsm_final_wfversion, new_person2)
+
+# 但如何输出POR、HOR预测结果为No的所有可能组合呢？（是否是写个循环把83个所有可能组合作为输入，然后预测后根据结果进行筛选？）
+# POR为No和HOR为No的输出结果如何求交集（即最终建议医生的治疗组合），然后输出这个结果呢？
+
+
+## 感谢！！！
+```
+
+
+
+
+
+
+
+
+
+

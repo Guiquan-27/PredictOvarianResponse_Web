@@ -1,0 +1,14 @@
+# Python dependencies for Ovarian Response Prediction API
+
+# No external dependencies needed for the simple HTTP server
+# The API uses only Python standard library modules:
+# - http.server
+# - json
+# - urllib.parse
+# - datetime
+
+# If you need additional packages in the future, add them here
+# For example:
+# requests==2.31.0
+# numpy==1.24.3
+# pandas==2.0.3

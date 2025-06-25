@@ -1,0 +1,61 @@
+/* 全局样式 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* 动画样式 */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 预测结果组件样式 */
+.prediction-result {
+  /* 结果组件的特殊样式 */
+}
+
+/* 医疗表单样式 */
+.medical-form {
+  /* 表单的特殊样式 */
+}
+
+/* 风险评估卡片样式 */
+.risk-assessment-card {
+  transition: all 0.3s ease;
+}
+
+.risk-assessment-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* 图表容器样式 */
+.chart-container {
+  overflow: hidden;
+}
+
+/* 响应式图表 */
+@media (max-width: 768px) {
+  .recharts-responsive-container {
+    min-height: 200px !important;
+  }
+} 

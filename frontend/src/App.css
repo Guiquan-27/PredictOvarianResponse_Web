@@ -1,0 +1,564 @@
+/* Global Styles */
+.app-layout {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.app-content {
+  padding: 0;
+  background: transparent;
+}
+
+.content-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Header Styles */
+.app-header {
+  background: linear-gradient(135deg, #437A8B 0%, #2c5f7a 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 0 24px;
+  height: 80px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.logo-container {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.logo-icon {
+  font-size: 28px;
+  color: #fff;
+}
+
+.header-title {
+  color: #fff !important;
+  margin: 0 !important;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.header-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  margin: 0;
+}
+
+.institution-info {
+  text-align: right;
+}
+
+/* Footer Styles */
+.app-footer {
+  background: #001529;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 24px;
+  margin-top: 40px;
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Main Tabs */
+.main-tabs {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.main-tabs .ant-tabs-tab {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px 8px 0 0;
+}
+
+.main-tabs .ant-tabs-tab-active {
+  background: #f8fafc;
+}
+
+/* Welcome Page */
+.welcome-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.welcome-card .ant-card-body {
+  padding: 48px;
+}
+
+.welcome-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.welcome-icon {
+  font-size: 48px;
+  color: #fff;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.welcome-card h2 {
+  color: #fff !important;
+}
+
+.welcome-card .ant-typography {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.feature-card .ant-card-body {
+  padding: 24px;
+}
+
+.feature-card h4 {
+  color: #fff !important;
+  margin-bottom: 8px !important;
+}
+
+.feature-card .ant-typography {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Prediction Wizard */
+.prediction-wizard {
+  width: 100%;
+}
+
+.wizard-card {
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.wizard-header {
+  padding: 24px 24px 0;
+}
+
+.wizard-content {
+  padding: 24px;
+  min-height: 400px;
+}
+
+.wizard-footer {
+  padding: 0 24px 24px;
+  text-align: center;
+  border-top: 1px solid #f0f0f0;
+  margin-top: 24px;
+  padding-top: 24px;
+}
+
+/* Form Styles */
+.patient-data-form {
+  width: 100%;
+}
+
+.prediction-type-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  margin-bottom: 24px;
+}
+
+.prediction-type-card .ant-card-body {
+  padding: 20px;
+}
+
+.prediction-type-card h4,
+.prediction-type-card .ant-typography {
+  color: #fff !important;
+}
+
+.prediction-type-card .ant-radio-group {
+  margin: 16px 0;
+}
+
+.example-card {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  border: none;
+  margin-bottom: 24px;
+}
+
+.example-card .ant-card-body {
+  padding: 16px 20px;
+}
+
+.example-card .ant-typography {
+  color: #fff !important;
+}
+
+.form-section {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.form-section .ant-card-head {
+  background: #f8fafc;
+  border-radius: 12px 12px 0 0;
+}
+
+.form-section .ant-card-head-title {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+/* Prediction Results */
+.prediction-results {
+  width: 100%;
+}
+
+.results-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.prediction-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+}
+
+.prediction-card .ant-card-head {
+  background: #f8fafc;
+  border-radius: 12px 12px 0 0;
+}
+
+.risk-card {
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.risk-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.risk-card .ant-statistic-title {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.risk-card .ant-statistic-content {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* Strategy Analysis */
+.strategy-analysis {
+  width: 100%;
+}
+
+.analysis-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.strategy-table .ant-table-thead > tr > th {
+  background: #f8fafc;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.strategy-table .ant-table-tbody > tr:hover > td {
+  background: #f1f5f9;
+}
+
+/* Contact Info */
+.contact-info {
+  width: 100%;
+}
+
+.contact-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+
+.contact-header .ant-card-body {
+  padding: 32px;
+}
+
+.contact-header h2,
+.contact-header .ant-typography {
+  color: #fff !important;
+}
+
+.contact-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.contact-card .ant-card-head {
+  background: #f8fafc;
+  border-radius: 12px 12px 0 0;
+}
+
+.institution-logos {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-content {
+    padding: 0 16px;
+  }
+  
+  .header-title {
+    font-size: 16px;
+  }
+  
+  .header-subtitle {
+    display: none;
+  }
+  
+  .content-container {
+    padding: 16px;
+  }
+  
+  .welcome-card .ant-card-body {
+    padding: 24px;
+  }
+  
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .wizard-content {
+    padding: 16px;
+  }
+  
+  .form-section .ant-card-body {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .app-header {
+    height: 60px;
+    padding: 0 16px;
+  }
+  
+  .logo-container {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .logo-icon {
+    font-size: 20px;
+  }
+  
+  .header-title {
+    font-size: 14px;
+  }
+  
+  .institution-info {
+    display: none;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.prediction-card,
+.contact-card,
+.form-section {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Loading Overlay */
+.ant-spin-container {
+  position: relative;
+}
+
+.ant-spin-blur {
+  filter: blur(0.5px);
+  pointer-events: none;
+}
+
+/* Table Enhancements */
+.ant-table-thead > tr > th {
+  font-weight: 600;
+  background: #fafbfc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.ant-table-tbody > tr > td {
+  padding: 12px 16px;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #f7fafc;
+}
+
+/* Button Enhancements */
+.ant-btn {
+  font-weight: 500;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.ant-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.ant-btn-primary {
+  background: linear-gradient(135deg, #437A8B 0%, #2c5f7a 100%);
+  border: none;
+}
+
+.ant-btn-primary:hover {
+  background: linear-gradient(135deg, #2c5f7a 0%, #1a4a5c 100%);
+}
+
+/* Card Enhancements */
+.ant-card {
+  transition: all 0.3s ease;
+}
+
+.ant-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.ant-card-head {
+  font-weight: 600;
+}
+
+/* Progress Enhancements */
+.ant-progress-circle .ant-progress-text {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Steps Enhancement */
+.ant-steps .ant-steps-item-process .ant-steps-item-icon {
+  background: #437A8B;
+  border-color: #437A8B;
+}
+
+.ant-steps .ant-steps-item-finish .ant-steps-item-icon {
+  background: #52c41a;
+  border-color: #52c41a;
+}
+
+/* Tag Enhancements */
+.ant-tag {
+  border-radius: 4px;
+  font-weight: 500;
+  padding: 4px 8px;
+}
+
+/* Input Enhancements */
+.ant-input,
+.ant-select-selector {
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.ant-input:focus,
+.ant-select-focused .ant-select-selector {
+  border-color: #437A8B;
+  box-shadow: 0 0 0 2px rgba(67, 122, 139, 0.2);
+}
+
+/* Alert Enhancements */
+.ant-alert {
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
