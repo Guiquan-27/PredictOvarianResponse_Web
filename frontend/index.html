@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/medical-icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="卵巢反应预测工具 - 基于机器学习的临床决策支持系统" />
-    <meta name="keywords" content="卵巢反应,预测模型,机器学习,临床工具,医疗AI" />
+    <meta name="description" content="IVF Ovarian Response Prediction System - Machine Learning-powered Clinical Decision Support" />
+    <meta name="keywords" content="ovarian response,prediction model,machine learning,clinical tool,medical AI,IVF" />
     <meta name="author" content="Ovarian Response Prediction Team" />
-    <title>卵巢反应预测工具</title>
+    <title>IVF Ovarian Response Prediction System</title>
     
-    <!-- 预加载关键资源 -->
-    <link rel="preconnect" href="http://127.0.0.1:8000" crossorigin />
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://predictovarianresponseweb-production.up.railway.app" crossorigin />
     
     <!-- PWA manifest -->
     <link rel="manifest" href="/manifest.json" />
@@ -21,12 +21,12 @@
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="卵巢反应预测工具" />
-    <meta property="og:description" content="基于机器学习的卵巢反应预测系统" />
+    <meta property="og:title" content="IVF Ovarian Response Prediction System" />
+    <meta property="og:description" content="Machine Learning-powered Ovarian Response Prediction System for IVF" />
     <meta property="og:url" content="/" />
     
     <style>
-      /* 加载动画样式 */
+      /* Loading animation styles */
       #loading {
         position: fixed;
         top: 0;
@@ -61,12 +61,12 @@
         font-size: 16px;
       }
       
-      /* 确保应用容器占满整个视口 */
+      /* Ensure app container takes full viewport */
       #root {
         min-height: 100vh;
       }
       
-      /* 基础样式重置 */
+      /* Basic style reset */
       * {
         box-sizing: border-box;
       }
@@ -82,18 +82,18 @@
     </style>
   </head>
   <body>
-    <!-- 加载指示器 -->
+    <!-- Loading indicator -->
     <div id="loading">
       <div class="loading-spinner"></div>
-      <div class="loading-text">正在加载卵巢反应预测工具...</div>
+      <div class="loading-text">Loading IVF Ovarian Response Prediction System...</div>
     </div>
     
-    <!-- React 应用根节点 -->
+    <!-- React application root node -->
     <div id="root"></div>
     
-    <!-- 隐藏加载指示器的脚本 -->
+    <!-- Script to hide loading indicator -->
     <script>
-      // 当页面加载完成时隐藏加载指示器
+      // Hide loading indicator when page loads
       window.addEventListener('load', function() {
         const loading = document.getElementById('loading');
         if (loading) {
@@ -104,12 +104,12 @@
         }
       });
       
-      // 错误处理
+      // Error handling
       window.addEventListener('error', function(e) {
-        console.error('应用启动错误:', e.error);
+        console.error('Application startup error:', e.error);
         const loading = document.getElementById('loading');
         if (loading) {
-          loading.innerHTML = '<div style="text-align: center; color: #f5222d;">应用加载失败，请刷新页面重试</div>';
+          loading.innerHTML = '<div style="text-align: center; color: #f5222d;">Application failed to load. Please refresh the page and try again.</div>';
         }
       });
     </script>
