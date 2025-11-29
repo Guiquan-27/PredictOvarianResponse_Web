@@ -357,60 +357,72 @@ const StrategyAnalysis: React.FC<StrategyAnalysisProps> = ({
             {analysisMode === 'specific' && (
               <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} md={6}>
-                  <Select
-                    placeholder="Select Protocol"
-                    value={selectedProtocol}
-                    onChange={setSelectedProtocol}
-                    style={{ width: '100%' }}
-                  >
-                    {protocolOptions.map(option => (
-                      <Option key={option.value} value={option.value}>
-                        {option.label}
-                      </Option>
-                    ))}
-                  </Select>
+                  <Space direction="vertical" style={{ width: '100%' }} size="small">
+                    <Text strong>Protocol</Text>
+                    <Select
+                      placeholder="Select Protocol"
+                      value={selectedProtocol}
+                      onChange={setSelectedProtocol}
+                      style={{ width: '100%' }}
+                    >
+                      {protocolOptions.map(option => (
+                        <Option key={option.value} value={option.value}>
+                          {option.label}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Space>
                 </Col>
                 <Col xs={24} sm={12} md={6}>
-                  <Select
-                    placeholder="FSH Dose"
-                    value={selectedFSHDose}
-                    onChange={setSelectedFSHDose}
-                    style={{ width: '100%' }}
-                  >
-                    {fshDoseOptions.map(option => (
-                      <Option key={option.value} value={option.value}>
-                        {option.label}
-                      </Option>
-                    ))}
-                  </Select>
+                  <Space direction="vertical" style={{ width: '100%' }} size="small">
+                    <Text strong>FSH starting dose</Text>
+                    <Select
+                      placeholder="Select Dose"
+                      value={selectedFSHDose}
+                      onChange={setSelectedFSHDose}
+                      style={{ width: '100%' }}
+                    >
+                      {fshDoseOptions.map(option => (
+                        <Option key={option.value} value={option.value}>
+                          {option.label}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Space>
                 </Col>
                 <Col xs={24} sm={12} md={6}>
-                  <Select
-                    placeholder="rFSH Usage"
-                    value={selectedRFSH}
-                    onChange={setSelectedRFSH}
-                    style={{ width: '100%' }}
-                  >
-                    {yesNoOptions.map(option => (
-                      <Option key={option.value} value={option.value}>
-                        {option.label}
-                      </Option>
-                    ))}
-                  </Select>
+                  <Space direction="vertical" style={{ width: '100%' }} size="small">
+                    <Text strong>Using rFSH</Text>
+                    <Select
+                      placeholder="Select Option"
+                      value={selectedRFSH}
+                      onChange={setSelectedRFSH}
+                      style={{ width: '100%' }}
+                    >
+                      {yesNoOptions.map(option => (
+                        <Option key={option.value} value={option.value}>
+                          {option.label}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Space>
                 </Col>
                 <Col xs={24} sm={12} md={6}>
-                  <Select
-                    placeholder="LH Usage"
-                    value={selectedLH}
-                    onChange={setSelectedLH}
-                    style={{ width: '100%' }}
-                  >
-                    {yesNoOptions.map(option => (
-                      <Option key={option.value} value={option.value}>
-                        {option.label}
-                      </Option>
-                    ))}
-                  </Select>
+                  <Space direction="vertical" style={{ width: '100%' }} size="small">
+                    <Text strong>LH supplementation</Text>
+                    <Select
+                      placeholder="Select Option"
+                      value={selectedLH}
+                      onChange={setSelectedLH}
+                      style={{ width: '100%' }}
+                    >
+                      {yesNoOptions.map(option => (
+                        <Option key={option.value} value={option.value}>
+                          {option.label}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Space>
                 </Col>
               </Row>
             )}
