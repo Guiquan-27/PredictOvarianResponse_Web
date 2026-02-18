@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Typography, Space, Divider } from 'antd';
-import { CopyrightOutlined, MailOutlined, GlobalOutlined, SafetyOutlined } from '@ant-design/icons';
+import { CopyrightOutlined, GlobalOutlined, SafetyOutlined } from '@ant-design/icons';
 
 const { Footer: AntFooter } = Layout;
 const { Text, Link } = Typography;
@@ -14,11 +14,6 @@ const Footer: React.FC = () => {
             <Space size="small">
               <CopyrightOutlined />
               <Text>2024 Zhejiang University Women's Hospital</Text>
-            </Space>
-
-            <Space size="small">
-              <MailOutlined />
-              <Link href="mailto:contact@example.com">contact@example.com</Link>
             </Space>
 
             <Space size="small">

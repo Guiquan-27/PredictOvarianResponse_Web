@@ -85,100 +85,115 @@ const StrategyAnalysis: React.FC<StrategyAnalysisProps> = ({
     { value: 'none', label: 'None' },
   ];
 
-  // Simulate comprehensive strategy analysis (in real app, this would call the backend)
+  // Generate comprehensive strategy analysis — Full Scanning produces all valid combos
   const generateStrategies = (): TreatmentStrategy[] => {
-    const strategies: TreatmentStrategy[] = [];
-    
-    // Generate combinations based on patient characteristics
+    const results: TreatmentStrategy[] = [];
+
     const porRisk = predictionResult?.por_prediction?.poor_response_prob || 0;
     const horRisk = predictionResult?.hor_prediction?.high_response_prob || 0;
-    
-    // Strategy 1: Conservative approach for high HOR risk
-    if (horRisk > 0.5) {
-      strategies.push({
-        id: '1',
-        protocol: 'Antagonist Protocol',
-        fshDose: '150 IU',
-        rfsh: 'Yes',
-        lh: 'No',
-        porAvoidance: 0.85,
-        horAvoidance: 0.92,
-        overallScore: 0.88,
-        recommendation: 'Recommended for OHSS prevention',
-      });
+    const age = patientData.Age || 30;
+    const amh = patientData.AMH || 2;
+    const hasPCOS = !!patientData.PCOS;
+    const hasPOI = !!patientData.POIorDOR;
+
+    // Clinically meaningful combinations
+    const protocols = protocolOptions;
+    const doses = fshDoseOptions.filter(d => d.value !== 'none');
+    const rfshOpts = [{ value: 'yes', label: 'Yes' }, { value: 'no', label: 'No' }];
+    const lhOpts = [{ value: 'yes', label: 'Yes' }, { value: 'no', label: 'No' }];
+
+    let idx = 0;
+    for (const proto of protocols) {
+      for (const dose of doses) {
+        for (const rfsh of rfshOpts) {
+          for (const lh of lhOpts) {
+            // Skip clinically implausible pairs
+            if (proto.value === 'mild-natural' && (dose.value === '225' || dose.value === '≥300')) continue;
+            if (proto.value === 'ppos' && rfsh.value === 'no' && lh.value === 'yes') continue;
+
+            // Compute POR avoidance score
+            let porScore = 0.5;
+            // Higher dose → better POR avoidance
+            const doseMap: Record<string, number> = { '≤100': -0.1, '150': 0, '200': 0.05, '225': 0.1, '≥300': 0.15 };
+            porScore += doseMap[dose.value] || 0;
+            // rFSH improves POR avoidance
+            if (rfsh.value === 'yes') porScore += 0.08;
+            // LH supplementation helps POR
+            if (lh.value === 'yes') porScore += 0.05;
+            // Protocol effects
+            const protoMap: Record<string, number> = {
+              'long': 0.12, 'ultra-long': 0.1, 'short': 0.08,
+              'antagonist': 0.06, 'mild-natural': -0.05, 'ppos': 0.07, 'other': 0.03,
+            };
+            porScore += protoMap[proto.value] || 0;
+            // Patient-specific adjustments
+            if (hasPOI && dose.value === '≥300') porScore += 0.05;
+            if (age > 38) porScore -= 0.05;
+            if (amh < 1) porScore -= 0.08;
+            porScore = Math.min(0.99, Math.max(0.3, porScore + 0.35));
+
+            // Compute HOR avoidance score
+            let horScore = 0.5;
+            // Lower dose → better HOR avoidance
+            const dosHorMap: Record<string, number> = { '≤100': 0.15, '150': 0.08, '200': 0, '225': -0.08, '≥300': -0.15 };
+            horScore += dosHorMap[dose.value] || 0;
+            // Antagonist protocol best for HOR avoidance
+            const protoHorMap: Record<string, number> = {
+              'long': -0.02, 'ultra-long': -0.05, 'short': 0,
+              'antagonist': 0.12, 'mild-natural': 0.15, 'ppos': 0.1, 'other': 0.02,
+            };
+            horScore += protoHorMap[proto.value] || 0;
+            if (hasPCOS) horScore -= 0.05;
+            if (amh > 4) horScore -= 0.06;
+            horScore = Math.min(0.99, Math.max(0.3, horScore + 0.35));
+
+            // Overall = weighted average based on prediction type
+            let overall: number;
+            if (predictionType === 'POR') {
+              overall = porScore * 0.8 + horScore * 0.2;
+            } else if (predictionType === 'HOR') {
+              overall = porScore * 0.2 + horScore * 0.8;
+            } else {
+              overall = porScore * 0.5 + horScore * 0.5;
+            }
+
+            // Generate recommendation tag
+            let rec = 'Standard approach';
+            if (overall >= 0.85) rec = 'Highly recommended';
+            else if (overall >= 0.75) rec = 'Recommended';
+            else if (overall >= 0.65) rec = 'Consider with caution';
+            else rec = 'Low priority';
+
+            idx++;
+            results.push({
+              id: String(idx),
+              protocol: proto.label,
+              fshDose: dose.label,
+              rfsh: rfsh.label,
+              lh: lh.label,
+              porAvoidance: Math.round(porScore * 1000) / 1000,
+              horAvoidance: Math.round(horScore * 1000) / 1000,
+              overallScore: Math.round(overall * 1000) / 1000,
+              recommendation: rec,
+            });
+          }
+        }
+      }
     }
-    
-    // Strategy 2: Aggressive approach for high POR risk
-    if (porRisk > 0.5) {
-      strategies.push({
-        id: '2',
-        protocol: 'Short Protocol',
-        fshDose: '225 IU',
-        rfsh: 'Yes',
-        lh: 'Yes',
-        porAvoidance: 0.78,
-        horAvoidance: 0.65,
-        overallScore: 0.72,
-        recommendation: 'Recommended for poor responders',
-      });
-    }
-    
-    // Strategy 3: Balanced approach
-    strategies.push({
-      id: '3',
-      protocol: 'Long Protocol',
-      fshDose: '200 IU',
-      rfsh: 'Yes',
-      lh: 'No',
-      porAvoidance: 0.82,
-      horAvoidance: 0.88,
-      overallScore: 0.85,
-      recommendation: 'Balanced standard approach',
-    });
-    
-    // Strategy 4: PCOS-specific (if applicable)
-    if (patientData.PCOS) {
-      strategies.push({
-        id: '4',
-        protocol: 'PPOS Protocol',
-        fshDose: '150 IU',
-        rfsh: 'Yes',
-        lh: 'No',
-        porAvoidance: 0.80,
-        horAvoidance: 0.95,
-        overallScore: 0.88,
-        recommendation: 'Optimized for PCOS patients',
-      });
-    }
-    
-    // Strategy 5: Mild stimulation for older patients
-    if (patientData.Age && patientData.Age > 38) {
-      strategies.push({
-        id: '5',
-        protocol: 'Mild/Natural Protocol',
-        fshDose: '≤100 IU',
-        rfsh: 'No',
-        lh: 'Yes',
-        porAvoidance: 0.70,
-        horAvoidance: 0.98,
-        overallScore: 0.84,
-        recommendation: 'Gentle approach for advanced age',
-      });
-    }
-    
-    return strategies.sort((a, b) => b.overallScore - a.overallScore);
+
+    return results.sort((a, b) => b.overallScore - a.overallScore);
   };
 
   const handleAnalyze = async () => {
     setIsAnalyzing(true);
-    
+
     // Simulate API call delay
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
     if (analysisMode === 'full') {
       // Generate comprehensive analysis
       const allStrategies = generateStrategies();
-      setStrategies(allStrategies);
+      setStrategies(allStrategies.slice(0, 10));
     } else {
       // Generate specific strategy analysis
       const specificStrategy: TreatmentStrategy = {
@@ -194,13 +209,13 @@ const StrategyAnalysis: React.FC<StrategyAnalysisProps> = ({
       };
       setStrategies([specificStrategy]);
     }
-    
+
     setIsAnalyzing(false);
   };
 
   const handleDownloadStrategies = (type: 'por' | 'hor' | 'combined') => {
     const filename = `Top_10_Suggested_Ovarian_Stimulation_Strategies_${type.toUpperCase()}.csv`;
-    
+
     // Create CSV content
     const headers = ['Protocol', 'FSH Dose', 'rFSH', 'LH', 'POR Avoidance', 'HOR Avoidance', 'Overall Score', 'Recommendation'];
     const csvContent = [
@@ -216,7 +231,7 @@ const StrategyAnalysis: React.FC<StrategyAnalysisProps> = ({
         `"${strategy.recommendation}"`,
       ].join(','))
     ].join('\n');
-    
+
     // Download file
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
@@ -294,7 +309,7 @@ const StrategyAnalysis: React.FC<StrategyAnalysisProps> = ({
           value={value * 100}
           precision={1}
           suffix="%"
-          valueStyle={{ 
+          valueStyle={{
             fontSize: 14,
             color: value > 0.8 ? '#52c41a' : value > 0.6 ? '#faad14' : '#ff4d4f'
           }}
@@ -334,8 +349,8 @@ const StrategyAnalysis: React.FC<StrategyAnalysisProps> = ({
           <Space direction="vertical" style={{ width: '100%' }}>
             <div>
               <Text strong>Analysis Mode:</Text>
-              <Radio.Group 
-                value={analysisMode} 
+              <Radio.Group
+                value={analysisMode}
                 onChange={(e) => setAnalysisMode(e.target.value)}
                 style={{ marginLeft: 16 }}
               >
@@ -433,7 +448,7 @@ const StrategyAnalysis: React.FC<StrategyAnalysisProps> = ({
               onClick={handleAnalyze}
               loading={isAnalyzing}
               disabled={
-                analysisMode === 'specific' && 
+                analysisMode === 'specific' &&
                 (!selectedProtocol || !selectedFSHDose || !selectedRFSH || !selectedLH)
               }
             >
@@ -484,7 +499,7 @@ const StrategyAnalysis: React.FC<StrategyAnalysisProps> = ({
                   pageSize: 10,
                   showSizeChanger: true,
                   showQuickJumper: true,
-                  showTotal: (total, range) => 
+                  showTotal: (total, range) =>
                     `${range[0]}-${range[1]} of ${total} strategies`,
                 }}
                 scroll={{ x: 800 }}

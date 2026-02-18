@@ -59,7 +59,9 @@
 /* ============================================================
    Global Reset & Base
    ============================================================ */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -125,11 +127,18 @@ body {
   border-bottom: 1px solid var(--color-border);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04), 0 4px 24px rgba(0, 0, 0, 0.4);
   padding: 0 32px;
-  height: 72px;
+  height: 80px;
+  line-height: normal;
   position: sticky;
   top: 0;
   z-index: 1000;
+  overflow: visible;
   transition: background var(--transition-base);
+}
+
+/* Override Ant Design Header overflow */
+.ant-layout-header.app-header {
+  overflow: visible !important;
 }
 
 .header-content {
@@ -139,6 +148,7 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   height: 100%;
+  line-height: normal;
 }
 
 .header-left {
@@ -235,8 +245,17 @@ body {
 }
 
 @keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(0.85); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(0.85);
+  }
 }
 
 .ml-tag {
@@ -770,7 +789,7 @@ body {
 }
 
 /* Table */
-.ant-table-thead > tr > th {
+.ant-table-thead>tr>th {
   font-weight: 600;
   font-family: var(--font-display);
   background: rgba(255, 255, 255, 0.03) !important;
@@ -778,12 +797,12 @@ body {
   color: var(--color-text-secondary) !important;
 }
 
-.ant-table-tbody > tr > td {
+.ant-table-tbody>tr>td {
   padding: 12px 16px;
   border-bottom: 1px solid var(--color-border) !important;
 }
 
-.ant-table-tbody > tr:hover > td {
+.ant-table-tbody>tr:hover>td {
   background: var(--color-surface-hover) !important;
 }
 
@@ -809,6 +828,7 @@ body {
     opacity: 0;
     transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -816,22 +836,40 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 .animate-fade-in-up {
   animation: fadeInUp 0.5s ease-out both;
 }
 
-.animate-fade-in-up-delay-1 { animation-delay: 0.1s; }
-.animate-fade-in-up-delay-2 { animation-delay: 0.2s; }
-.animate-fade-in-up-delay-3 { animation-delay: 0.3s; }
+.animate-fade-in-up-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.animate-fade-in-up-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.animate-fade-in-up-delay-3 {
+  animation-delay: 0.3s;
+}
 
 .prediction-card,
 .contact-card,
