@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { ConfigProvider, Layout, Typography, Tabs, Card, Space } from 'antd';
+import { ConfigProvider, Layout, Typography, Tabs, Space, theme } from 'antd';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { CalendarOutlined, ContactsOutlined, HomeOutlined, BarChartOutlined } from '@ant-design/icons';
+import {
+  ContactsOutlined,
+  HomeOutlined,
+  BarChartOutlined,
+  ExperimentOutlined,
+  DatabaseOutlined,
+  SafetyCertificateOutlined,
+} from '@ant-design/icons';
 
 import PredictionWizard from './components/prediction/PredictionWizard';
 import ContactInfo from './components/contact/ContactInfo';
@@ -20,85 +27,141 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: CONFIG.API.MAX_RETRIES,
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000,
       refetchOnWindowFocus: false,
     },
   },
 });
 
-// Main application theme
+// Ant Design dark theme configuration
 const appTheme = {
+  algorithm: theme.darkAlgorithm,
   token: {
-    colorPrimary: '#437A8B', // Primary blue from Shiny app
-    colorSuccess: '#52c41a',
-    colorWarning: '#faad14',
-    colorError: '#C23248', // Red from Shiny app
-    colorInfo: '#1890ff',
+    colorPrimary: '#0ea5e9',
+    colorSuccess: '#34d399',
+    colorWarning: '#fbbf24',
+    colorError: '#f87171',
+    colorInfo: '#38bdf8',
+    colorBgBase: '#080d1a',
+    colorBgContainer: 'rgba(255, 255, 255, 0.04)',
+    colorBgElevated: '#111d35',
+    colorBorder: 'rgba(255, 255, 255, 0.08)',
+    colorBorderSecondary: 'rgba(255, 255, 255, 0.05)',
+    colorText: 'rgba(255, 255, 255, 0.95)',
+    colorTextSecondary: 'rgba(255, 255, 255, 0.65)',
+    colorTextTertiary: 'rgba(255, 255, 255, 0.35)',
     borderRadius: 8,
     fontSize: 14,
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    fontFamily: "'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
   },
   components: {
     Card: {
       borderRadius: 12,
-      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+      colorBgContainer: 'rgba(255, 255, 255, 0.04)',
     },
     Button: {
-      borderRadius: 6,
+      borderRadius: 8,
       fontWeight: 500,
     },
     Input: {
-      borderRadius: 6,
+      borderRadius: 8,
+      colorBgContainer: 'rgba(255, 255, 255, 0.05)',
     },
     Select: {
-      borderRadius: 6,
+      borderRadius: 8,
+      colorBgContainer: 'rgba(255, 255, 255, 0.05)',
+    },
+    InputNumber: {
+      borderRadius: 8,
+      colorBgContainer: 'rgba(255, 255, 255, 0.05)',
+    },
+    Table: {
+      colorBgContainer: 'rgba(255, 255, 255, 0.03)',
+      headerBg: 'rgba(255, 255, 255, 0.03)',
+    },
+    Tabs: {
+      colorBgContainer: 'transparent',
+    },
+    Steps: {
+      colorPrimary: '#0ea5e9',
     },
   },
 };
 
+// Feature data
+const features = [
+  {
+    icon: <BarChartOutlined />,
+    colorClass: 'blue',
+    title: 'AI-Powered Predictions',
+    desc: 'XGBoost models trained on clinical data deliver accurate POR & HOR risk assessment.',
+  },
+  {
+    icon: <DatabaseOutlined />,
+    colorClass: 'purple',
+    title: 'Evidence-Based Protocols',
+    desc: 'Comprehensive ovarian stimulation strategy analysis and protocol optimization.',
+  },
+  {
+    icon: <SafetyCertificateOutlined />,
+    colorClass: 'green',
+    title: 'Clinical Decision Support',
+    desc: 'Actionable recommendations to improve patient outcomes in reproductive medicine.',
+  },
+];
+
 const HomePage: React.FC = () => (
-  <Card className="welcome-card">
-    <Space direction="vertical" size="large" style={{ width: '100%' }}>
-      <div className="welcome-header">
-        <CalendarOutlined className="welcome-icon" />
-        <Title level={2} style={{ margin: 0, color: '#437A8B' }}>
-          IVF Ovarian Response Prediction System
-        </Title>
+  <Space direction="vertical" size={24} style={{ width: '100%' }}>
+    {/* Hero Section */}
+    <div className="welcome-hero animate-fade-in-up">
+      <div className="hero-badge">
+        <ExperimentOutlined />
+        Machine Learning · Reproductive Medicine
       </div>
-      
-      <Paragraph style={{ fontSize: 16, lineHeight: 1.6 }}>
-        Welcome to the advanced ovarian response prediction system. This tool uses machine learning 
-        algorithms to predict Poor Ovarian Response (POR) and High Ovarian Response (HOR) based on 
-        clinical parameters, helping clinicians optimize treatment strategies for assisted reproductive technology.
+
+      <Title className="hero-title">
+        Predict Ovarian Response<br />
+        with <span className="hero-title-accent">Precision AI</span>
+      </Title>
+
+      <Paragraph className="hero-description">
+        An advanced clinical decision support system using XGBoost models to predict
+        Poor Ovarian Response (POR) and High Ovarian Response (HOR) — helping clinicians
+        optimize IVF treatment strategies with confidence.
       </Paragraph>
 
-      <div className="feature-grid">
-        <Card className="feature-card" size="small">
-          <BarChartOutlined style={{ fontSize: 24, color: '#437A8B', marginBottom: 8 }} />
-          <Title level={4}>AI-Powered Predictions</Title>
-          <Paragraph>
-            Advanced XGBoost models trained on clinical data to provide accurate predictions
-          </Paragraph>
-        </Card>
-        
-        <Card className="feature-card" size="small">
-          <CalendarOutlined style={{ fontSize: 24, color: '#437A8B', marginBottom: 8 }} />
-          <Title level={4}>Treatment Strategies</Title>
-          <Paragraph>
-            Comprehensive analysis of ovarian stimulation strategies and protocol optimization
-          </Paragraph>
-        </Card>
-        
-        <Card className="feature-card" size="small">
-          <HomeOutlined style={{ fontSize: 24, color: '#437A8B', marginBottom: 8 }} />
-          <Title level={4}>Clinical Decision Support</Title>
-          <Paragraph>
-            Evidence-based recommendations to improve patient outcomes in reproductive medicine
-          </Paragraph>
-        </Card>
+      <div className="hero-stats">
+        <div className="hero-stat">
+          <span className="hero-stat-value">2</span>
+          <span className="hero-stat-label">Prediction Models</span>
+        </div>
+        <div className="hero-stat">
+          <span className="hero-stat-value">15</span>
+          <span className="hero-stat-label">Clinical Parameters</span>
+        </div>
+        <div className="hero-stat">
+          <span className="hero-stat-value">XGB</span>
+          <span className="hero-stat-label">Algorithm</span>
+        </div>
       </div>
-    </Space>
-  </Card>
+    </div>
+
+    {/* Feature Cards */}
+    <div className="feature-grid">
+      {features.map((f, i) => (
+        <div
+          key={f.title}
+          className={`feature-card-new animate-fade-in-up animate-fade-in-up-delay-${i + 1}`}
+        >
+          <div className={`feature-icon-wrapper ${f.colorClass}`}>
+            {f.icon}
+          </div>
+          <h3 className="feature-card-title">{f.title}</h3>
+          <p className="feature-card-desc">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </Space>
 );
 
 const App: React.FC = () => {
@@ -142,7 +205,7 @@ const App: React.FC = () => {
       <ConfigProvider theme={appTheme}>
         <Layout className="app-layout">
           <Header />
-          
+
           <Content className="app-content">
             <div className="content-container">
               <Tabs
@@ -152,8 +215,7 @@ const App: React.FC = () => {
                 size="large"
                 className="main-tabs"
                 tabBarStyle={{
-                  marginBottom: 24,
-                  borderBottom: '2px solid #f0f0f0',
+                  marginBottom: 0,
                 }}
               />
             </div>
@@ -162,7 +224,7 @@ const App: React.FC = () => {
           <Footer />
         </Layout>
       </ConfigProvider>
-      
+
       {CONFIG.DEBUG.ENABLED && <ReactQueryDevtools initialIsOpen={false} />}
     </QueryClientProvider>
   );
