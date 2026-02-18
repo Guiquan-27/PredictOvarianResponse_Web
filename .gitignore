@@ -68,6 +68,7 @@ shiny_ovarianresp/
 
 # IDE and development tools
 .cursor/
+.claude/
 .roo/
 .roomodes
 .taskmaster/
@@ -76,6 +77,9 @@ shiny_ovarianresp/
 
 # Environment files
 .env.example
+
+# Research data (not for public repo)
+bmc medicine/
 
 # Python
 __pycache__/
