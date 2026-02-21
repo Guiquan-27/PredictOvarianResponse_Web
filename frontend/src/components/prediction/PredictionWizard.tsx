@@ -7,13 +7,13 @@ import PredictionResults from './PredictionResults';
 import StrategyAnalysis from './StrategyAnalysis';
 import { usePredictionStore } from '../../stores/predictionStore';
 import { PredictionService } from '../../services/predictionService';
-import { PredictionFormData } from '../../types/prediction';
+import { PredictionFormData, PredictionResult } from '../../types/prediction';
 
 const { Step } = Steps;
 
 interface PredictionWizardState {
   currentStep: number;
-  predictionResult: any;
+  predictionResult: PredictionResult | null;
   isLoading: boolean;
   error: string | null;
   showStrategy: boolean;

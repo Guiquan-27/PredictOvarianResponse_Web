@@ -19,14 +19,15 @@ import {
   InfoCircleOutlined,
   HeartOutlined,
   BarChartOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons';
 
-import { PredictionFormData, PredictionType } from '../../types/prediction';
+import { PredictionFormData, PredictionResult, PredictionType } from '../../types/prediction';
 
 const { Title, Text, Paragraph } = Typography;
 
 interface PredictionResultsProps {
-  result: any;
+  result: PredictionResult | null;
   predictionType: PredictionType;
   patientData: PredictionFormData;
 }
@@ -48,12 +49,62 @@ const PredictionResults: React.FC<PredictionResultsProps> = ({
   }
 
   const getRiskLevel = (probability: number) => {
-    if (probability >= 0.7) return { level: 'high', color: '#ff4d4f', text: 'High Risk' };
-    if (probability >= 0.3) return { level: 'medium', color: '#faad14', text: 'Medium Risk' };
-    return { level: 'low', color: '#52c41a', text: 'Low Risk' };
+    if (probability >= 0.7) return { level: 'high' as const, color: '#f87171', text: 'High Risk', icon: <ExclamationCircleOutlined /> };
+    if (probability >= 0.3) return { level: 'medium' as const, color: '#fbbf24', text: 'Medium Risk', icon: <WarningOutlined /> };
+    return { level: 'low' as const, color: '#34d399', text: 'Low Risk', icon: <CheckCircleOutlined /> };
   };
 
   const formatPercentage = (value: number) => `${(value * 100).toFixed(1)}%`;
+
+  const isConflict =
+    predictionType === 'Both' &&
+    result.por_prediction &&
+    result.hor_prediction &&
+    result.por_prediction.poor_response_prob > 0.5 &&
+    result.hor_prediction.high_response_prob > 0.5;
+
+  const primaryRisk = isConflict
+    ? result.por_prediction!.poor_response_prob > result.hor_prediction!.high_response_prob
+      ? 'Poor Ovarian Response'
+      : 'High Ovarian Response'
+    : null;
+
+  const renderConflictAlert = () => {
+    if (!isConflict) return null;
+    return (
+      <Alert
+        message={
+          <Space>
+            <ExclamationCircleOutlined />
+            <Text strong>Conflicting Prediction Detected</Text>
+          </Space>
+        }
+        description={
+          <div role="alert">
+            <Paragraph style={{ marginBottom: 8 }}>
+              Both models simultaneously predict positive: POR{' '}
+              <Text strong>{formatPercentage(result!.por_prediction!.poor_response_prob)}</Text>
+              {' / HOR '}
+              <Text strong>{formatPercentage(result!.hor_prediction!.high_response_prob)}</Text>.
+            </Paragraph>
+            <Paragraph style={{ marginBottom: 8 }}>
+              Primary risk: <Tag color="orange">{primaryRisk}</Tag>
+            </Paragraph>
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              Flagged for additional clinical review.
+            </Text>
+          </div>
+        }
+        type="warning"
+        showIcon={false}
+        style={{
+          marginBottom: 16,
+          borderLeft: '4px solid #fbbf24',
+          background: 'rgba(251, 191, 36, 0.06)',
+        }}
+      />
+    );
+  };
 
   const renderPORResults = () => {
     if (!result.por_prediction) return null;
@@ -89,7 +140,7 @@ const PredictionResults: React.FC<PredictionResultsProps> = ({
                 showInfo={false}
                 size="small"
               />
-              <Tag color={poorRisk.color} style={{ marginTop: 8 }}>
+              <Tag color={poorRisk.color} icon={poorRisk.icon} style={{ marginTop: 8 }}>
                 {poorRisk.text}
               </Tag>
             </Card>
@@ -164,7 +215,7 @@ const PredictionResults: React.FC<PredictionResultsProps> = ({
                 showInfo={false}
                 size="small"
               />
-              <Tag color={highRisk.color} style={{ marginTop: 8 }}>
+              <Tag color={highRisk.color} icon={highRisk.icon} style={{ marginTop: 8 }}>
                 {highRisk.text}
               </Tag>
             </Card>
@@ -232,6 +283,12 @@ const PredictionResults: React.FC<PredictionResultsProps> = ({
 
     const recommendations = [];
 
+    if (isConflict) {
+      recommendations.push(
+        "CONFLICTING PREDICTION: Both POR and HOR models predict positive. Additional clinical review is strongly recommended."
+      );
+    }
+
     if (porRisk && porRisk.level === 'high') {
       recommendations.push("Consider higher starting dose of gonadotropins");
       recommendations.push("Consider LH supplementation");
@@ -279,7 +336,7 @@ const PredictionResults: React.FC<PredictionResultsProps> = ({
   };
 
   return (
-    <div className="prediction-results">
+    <div className="prediction-results" role="region" aria-label="Prediction Results">
       <Space direction="vertical" size="large" style={{ width: '100%' }}>
         <div className="results-header">
           <Title level={3} style={{ color: '#437A8B', marginBottom: 8 }}>
@@ -292,6 +349,8 @@ const PredictionResults: React.FC<PredictionResultsProps> = ({
         </div>
 
         {renderPatientSummary()}
+
+        {renderConflictAlert()}
 
         <Row gutter={[16, 16]}>
           {(predictionType === 'POR' || predictionType === 'Both') && (

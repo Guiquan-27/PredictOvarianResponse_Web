@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { ConfigProvider, Layout, Typography, Tabs, Space, theme } from 'antd';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
   ContactsOutlined,
   HomeOutlined,
@@ -15,23 +13,11 @@ import PredictionWizard from './components/prediction/PredictionWizard';
 import ContactInfo from './components/contact/ContactInfo';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
-import { CONFIG } from './config';
 
 import './App.css';
 
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
-
-// Create a query client
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: CONFIG.API.MAX_RETRIES,
-      staleTime: 5 * 60 * 1000,
-      refetchOnWindowFocus: false,
-    },
-  },
-});
 
 // Ant Design dark theme configuration
 const appTheme = {
@@ -201,32 +187,28 @@ const App: React.FC = () => {
   ];
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ConfigProvider theme={appTheme}>
-        <Layout className="app-layout">
-          <Header />
+    <ConfigProvider theme={appTheme}>
+      <Layout className="app-layout">
+        <Header />
 
-          <Content className="app-content">
-            <div className="content-container">
-              <Tabs
-                activeKey={activeTab}
-                onChange={setActiveTab}
-                items={tabItems}
-                size="large"
-                className="main-tabs"
-                tabBarStyle={{
-                  marginBottom: 0,
-                }}
-              />
-            </div>
-          </Content>
+        <Content className="app-content">
+          <div className="content-container">
+            <Tabs
+              activeKey={activeTab}
+              onChange={setActiveTab}
+              items={tabItems}
+              size="large"
+              className="main-tabs"
+              tabBarStyle={{
+                marginBottom: 0,
+              }}
+            />
+          </div>
+        </Content>
 
-          <Footer />
-        </Layout>
-      </ConfigProvider>
-
-      {CONFIG.DEBUG.ENABLED && <ReactQueryDevtools initialIsOpen={false} />}
-    </QueryClientProvider>
+        <Footer />
+      </Layout>
+    </ConfigProvider>
   );
 };
 

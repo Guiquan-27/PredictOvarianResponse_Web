@@ -21,6 +21,13 @@ export const FORM_CONFIG = {
   VALIDATION_DELAY: 500,
 } as const;
 
+// 预测结果阈值配置
+export const PREDICTION_THRESHOLDS = {
+  HIGH_RISK: 0.7,
+  MEDIUM_RISK: 0.3,
+  LOW_RISK: 0.0,
+} as const;
+
 // 图表配置
 export const CHART_CONFIG = {
   COLORS: {

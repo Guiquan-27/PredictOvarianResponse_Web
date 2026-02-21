@@ -1,5 +1,5 @@
 import { PredictionResult } from '../types/api';
-import { PREDICTION_THRESHOLDS } from '../config';
+import { PREDICTION_THRESHOLDS } from '../constants/config';
 
 /**
  * 风险等级类型

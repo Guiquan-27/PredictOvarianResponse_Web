@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosError, AxiosResponse } from 'axios';
-import { API_CONFIG } from '../config';
+import { API_CONFIG } from '../constants/config';
 
 // API 基础配置
 const API_BASE_URL = API_CONFIG.BASE_URL;
