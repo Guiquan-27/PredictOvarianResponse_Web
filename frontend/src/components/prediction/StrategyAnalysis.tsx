@@ -193,7 +193,7 @@ const StrategyAnalysis: React.FC<StrategyAnalysisProps> = ({
     if (analysisMode === 'full') {
       // Generate comprehensive analysis
       const allStrategies = generateStrategies();
-      setStrategies(allStrategies.slice(0, 10));
+      setStrategies(allStrategies.slice(0, 5));
     } else {
       // Generate specific strategy analysis
       const specificStrategy: TreatmentStrategy = {
@@ -214,7 +214,7 @@ const StrategyAnalysis: React.FC<StrategyAnalysisProps> = ({
   };
 
   const handleDownloadStrategies = (type: 'por' | 'hor' | 'combined') => {
-    const filename = `Top_10_Suggested_Ovarian_Stimulation_Strategies_${type.toUpperCase()}.csv`;
+    const filename = `Top_5_Suggested_Ovarian_Stimulation_Strategies_${type.toUpperCase()}.csv`;
 
     // Create CSV content
     const headers = ['Protocol', 'FSH Dose', 'rFSH', 'LH', 'POR Avoidance', 'HOR Avoidance', 'Overall Score', 'Recommendation'];

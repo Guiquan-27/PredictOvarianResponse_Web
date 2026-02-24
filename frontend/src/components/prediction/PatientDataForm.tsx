@@ -51,7 +51,7 @@ const PatientDataForm: React.FC<PatientDataFormProps> = ({
   // Example data from the Shiny app
   const exampleData: PredictionFormData = {
     Age: 32,
-    Duration: 6,
+    Duration: 15,
     Weight: 58,
     FSH: 7.2,
     LH: 4.8,
@@ -62,7 +62,7 @@ const PatientDataForm: React.FC<PatientDataFormProps> = ({
     WBC: 6.2,
     RBC: 4.4,
     ALT: 22,
-    P: 1.1,
+    P: 0.5,
     PLT: 280,
     PCOS: false, // No
   };
@@ -116,55 +116,55 @@ const PatientDataForm: React.FC<PatientDataFormProps> = ({
     const validationRules: Record<string, any[]> = {
       Age: [
         { required: true, message: 'Age is required' },
-        { type: 'number', min: 18, max: 50, message: 'Age must be between 18-50 years' },
+        { type: 'number', min: 18, max: 60, message: 'Age must be between 18-60 years' },
       ],
       Duration: [
         { required: true, message: 'Duration is required' },
-        { type: 'number', min: 0, max: 60, message: 'Duration must be between 0-60 months' },
+        { type: 'number', min: 6, max: 120, message: 'Duration must be between 6-120 months' },
       ],
       Weight: [
         { required: true, message: 'Weight is required' },
-        { type: 'number', min: 30, max: 150, message: 'Weight must be between 30-150 kg' },
+        { type: 'number', min: 30, max: 200, message: 'Weight must be between 30-200 kg' },
       ],
       FSH: [
         { required: true, message: 'FSH is required' },
-        { type: 'number', min: 0, max: 50, message: 'FSH must be between 0-50 IU/L' },
+        { type: 'number', min: 0, max: 100, message: 'FSH must be between 0-100 IU/L' },
       ],
       LH: [
         { required: true, message: 'LH is required' },
-        { type: 'number', min: 0, max: 50, message: 'LH must be between 0-50 IU/L' },
+        { type: 'number', min: 0, max: 100, message: 'LH must be between 0-100 IU/L' },
       ],
       AMH: [
         { required: true, message: 'AMH is required' },
-        { type: 'number', min: 0, max: 20, message: 'AMH must be between 0-20 ng/mL' },
+        { type: 'number', min: 0, max: 30, message: 'AMH must be between 0-30 ng/mL' },
       ],
       AFC: [
         { required: true, message: 'AFC is required' },
-        { type: 'number', min: 0, max: 50, message: 'AFC must be between 0-50' },
+        { type: 'number', min: 0, max: 80, message: 'AFC must be between 0-80' },
       ],
       DBP: [
         { required: shouldShowField('DBP'), message: 'DBP is required for POR prediction' },
-        { type: 'number', min: 40, max: 120, message: 'DBP must be between 40-120 mmHg' },
+        { type: 'number', min: 30, max: 150, message: 'DBP must be between 30-150 mmHg' },
       ],
       WBC: [
         { required: shouldShowField('WBC'), message: 'WBC is required for POR prediction' },
-        { type: 'number', min: 2, max: 20, message: 'WBC must be between 2-20 ×10⁹/L' },
+        { type: 'number', min: 1, max: 30, message: 'WBC must be between 1-30 ×10⁹/L' },
       ],
       RBC: [
         { required: shouldShowField('RBC'), message: 'RBC is required for POR prediction' },
-        { type: 'number', min: 3, max: 7, message: 'RBC must be between 3-7 ×10¹²/L' },
+        { type: 'number', min: 2, max: 8, message: 'RBC must be between 2-8 ×10¹²/L' },
       ],
       ALT: [
         { required: shouldShowField('ALT'), message: 'ALT is required for POR prediction' },
-        { type: 'number', min: 5, max: 200, message: 'ALT must be between 5-200 IU/L' },
+        { type: 'number', min: 0, max: 500, message: 'ALT must be between 0-500 IU/L' },
       ],
       P: [
         { required: shouldShowField('P'), message: 'Progesterone is required for POR prediction' },
-        { type: 'number', min: 0.5, max: 5, message: 'Progesterone must be between 0.5-5 ng/mL' },
+        { type: 'number', min: 0.01, max: 2.0, message: 'Progesterone must be between 0.01-2.0 ng/mL' },
       ],
       PLT: [
         { required: shouldShowField('PLT'), message: 'Platelet count is required for HOR prediction' },
-        { type: 'number', min: 100, max: 800, message: 'Platelet count must be between 100-800 ×10⁹/L' },
+        { type: 'number', min: 50, max: 1000, message: 'Platelet count must be between 50-1000 ×10⁹/L' },
       ],
     };
 
