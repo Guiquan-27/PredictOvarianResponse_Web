@@ -19,23 +19,23 @@ import './App.css';
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
 
-// Ant Design dark theme configuration
+// Ant Design light theme configuration
 const appTheme = {
-  algorithm: theme.darkAlgorithm,
+  algorithm: theme.defaultAlgorithm,
   token: {
     colorPrimary: '#0ea5e9',
     colorSuccess: '#34d399',
     colorWarning: '#fbbf24',
     colorError: '#f87171',
     colorInfo: '#38bdf8',
-    colorBgBase: '#080d1a',
-    colorBgContainer: 'rgba(255, 255, 255, 0.04)',
-    colorBgElevated: '#111d35',
-    colorBorder: 'rgba(255, 255, 255, 0.08)',
-    colorBorderSecondary: 'rgba(255, 255, 255, 0.05)',
-    colorText: 'rgba(255, 255, 255, 0.95)',
-    colorTextSecondary: 'rgba(255, 255, 255, 0.65)',
-    colorTextTertiary: 'rgba(255, 255, 255, 0.35)',
+    colorBgBase: '#ffffff',
+    colorBgContainer: '#ffffff',
+    colorBgElevated: '#ffffff',
+    colorBorder: '#d9d9d9',
+    colorBorderSecondary: '#e8e8e8',
+    colorText: '#1a1a1a',
+    colorTextSecondary: '#595959',
+    colorTextTertiary: '#8c8c8c',
     borderRadius: 8,
     fontSize: 14,
     fontFamily: "'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
@@ -43,7 +43,7 @@ const appTheme = {
   components: {
     Card: {
       borderRadius: 12,
-      colorBgContainer: 'rgba(255, 255, 255, 0.04)',
+      colorBgContainer: '#ffffff',
     },
     Button: {
       borderRadius: 8,
@@ -51,19 +51,19 @@ const appTheme = {
     },
     Input: {
       borderRadius: 8,
-      colorBgContainer: 'rgba(255, 255, 255, 0.05)',
+      colorBgContainer: '#ffffff',
     },
     Select: {
       borderRadius: 8,
-      colorBgContainer: 'rgba(255, 255, 255, 0.05)',
+      colorBgContainer: '#ffffff',
     },
     InputNumber: {
       borderRadius: 8,
-      colorBgContainer: 'rgba(255, 255, 255, 0.05)',
+      colorBgContainer: '#ffffff',
     },
     Table: {
-      colorBgContainer: 'rgba(255, 255, 255, 0.03)',
-      headerBg: 'rgba(255, 255, 255, 0.03)',
+      colorBgContainer: '#ffffff',
+      headerBg: '#fafafa',
     },
     Tabs: {
       colorBgContainer: 'transparent',

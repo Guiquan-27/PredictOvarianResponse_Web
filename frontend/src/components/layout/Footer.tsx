@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
           </Space>
 
           <Space size="small">
-            <SafetyOutlined style={{ color: 'rgba(255,255,255,0.25)' }} />
+            <SafetyOutlined style={{ color: 'rgba(0,0,0,0.25)' }} />
             <Text type="secondary" style={{ fontSize: 12 }}>
               For research and clinical decision support only. Always consult qualified medical professionals.
             </Text>
