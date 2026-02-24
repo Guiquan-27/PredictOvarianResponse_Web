@@ -4,7 +4,7 @@
 
 // API 配置
 export const API_CONFIG = {
-  BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:9000',
+  BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000',
   TIMEOUT: Number(import.meta.env.VITE_API_TIMEOUT) || 30000,
   MAX_RETRIES: Number(import.meta.env.VITE_MAX_RETRIES) || 3,
 } as const;
